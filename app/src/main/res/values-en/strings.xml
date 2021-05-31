@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Fair Repack</string>
+    <string name="pop_titre">Question</string>
+    <string name="pop_contenu">Do you want to exit the app ?</string>
+    <string name="prompt_yes">Yes</string>
+    <string name="prompt_no">No</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be above 8 characters</string>
+    <string name="login_failed">"Login failed"</string>
+</resources>

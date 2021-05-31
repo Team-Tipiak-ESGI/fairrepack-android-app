@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- FIN LOG IN AUTO -->
-    
+
     <!-- PERMISSION POUR INTERNET, SINON DIFFICILE D'UTILISER L'API -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- FIN PERMISSION INTERNET-->

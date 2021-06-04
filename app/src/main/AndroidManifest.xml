@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.fairrepack">
+    package="com.saglissIndustries.fairrepack">
 
     <!-- LA SUITE NOUS PERMET DE RECUP LES DATA STOCK DANS LE TEL POUR PERMETRE UN LOGIN AUTO -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FairRepack">
         <activity
-            android:name=".ui.login.LoginActivity">
+            android:name=".volley.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

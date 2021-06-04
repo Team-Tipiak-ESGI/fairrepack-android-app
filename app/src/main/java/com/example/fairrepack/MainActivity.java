@@ -1,8 +1,10 @@
 package com.example.fairrepack;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import com.saglissIndustries.fairrepack.R;
 
 public class MainActivity extends AppCompatActivity {
 

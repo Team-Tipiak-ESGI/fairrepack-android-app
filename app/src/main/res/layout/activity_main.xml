@@ -10,14 +10,15 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
+        android:hint="@string/login"
+
         android:id="@+id/login" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:id="@+id/password" />
 

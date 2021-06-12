@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,11 +28,17 @@ public class MainActivity extends AppCompatActivity {
         this.loginText = findViewById(R.id.login);
         this.passwordText = findViewById(R.id.password);
 
+        // Creation Connexion vers API
         RequestAsync connection = new RequestAsync();
-        connection.doInBackground();
-
         // Creation Stockage Identifiants
         SharedPreferences sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+
+
+        this.signInBtn.setOnClickListener((View view) -> {
+            String test = connection.doInBackground();
+            Toast.makeText(getApplicationContext(), test,Toast.LENGTH_LONG).show();
+        });
+
     }
 
     public class RequestAsync extends AsyncTask<String, String, String> {

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         this.loginText = findViewById(R.id.login);
         this.passwordText = findViewById(R.id.password);
 
-        // Creation Stockage Identifiants
+        // Gestion SharedPreferences pour Stockage Identifiants
         SharedPreferences sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
 
         this.signInBtn.setOnClickListener((View view) -> {

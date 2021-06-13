@@ -19,9 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AssocActivity"></activity>
-        <activity android:name=".LandpageActivity"></activity>
-        <activity android:name=".CoinActivity"></activity>
+        <activity android:name=".AssocActivity"/>
+        <activity android:name=".LandpageActivity"/>
+        <activity android:name=".CoinActivity"/>
     </application>
 
 </manifest>

@@ -3,15 +3,15 @@ package com.saglissindustries.fairrepack;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.saglissindustries.fairrepack.httprequests.RequestCallback;
 import com.saglissindustries.fairrepack.httprequests.RequestHandler;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,42 +28,38 @@ public class MainActivity extends AppCompatActivity {
         this.loginText = findViewById(R.id.login);
         this.passwordText = findViewById(R.id.password);
 
-        // Creation Connexion vers API
-        RequestAsync connection = new RequestAsync();
         // Creation Stockage Identifiants
         SharedPreferences sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
 
-
         this.signInBtn.setOnClickListener((View view) -> {
-            String test = connection.doInBackground();
-            Toast.makeText(getApplicationContext(), test,Toast.LENGTH_LONG).show();
+            try {
+                // Création du JSON pour la requête
+                JSONObject postDataParams = new JSONObject();
+                postDataParams.put("email", this.loginText.getText().toString());
+                postDataParams.put("password", this.passwordText.getText().toString());
+
+                String url = "https://pa.quozul.dev/api/user/login.php";
+
+                // Faire la requête
+                new RequestHandler(url, "POST", postDataParams, new RequestCallback() {
+                    @Override
+                    public void run() {
+                        try {
+                            // Sauvegarde du token dans sharedPreferences
+                            String token = response.get("token").toString();
+                            sharedPreferences.edit().putString("token", token).apply();
+                            System.out.println(token);
+                        } catch (JSONException e) {
+                            // Le JSON retourné par la requête est invalide
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch (JSONException e) {
+                // Le JSON créé est invalide
+                e.printStackTrace();
+            }
         });
 
-    }
-
-    public class RequestAsync extends AsyncTask<String, String, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                //GET Request
-                //return RequestHandler.sendGet("https://prodevsblog.com/android_get.php");
-
-                // POST Request
-                JSONObject postDataParams = new JSONObject();
-                postDataParams.put("email", loginText);
-                postDataParams.put("password", passwordText);
-
-                return RequestHandler.sendPost("https://pa.quozul.dev/api/user/login.php", postDataParams);
-            } catch (Exception e) {
-                return new String("Exception: " + e.getMessage());
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            if (s != null) {
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            }
-        }
     }
 }

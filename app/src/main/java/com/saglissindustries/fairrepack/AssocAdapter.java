@@ -2,7 +2,10 @@ package com.saglissindustries.fairrepack;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -31,6 +34,18 @@ public class AssocAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.assoc, null);
         }
 
+        TextView name = convertView.findViewById(R.id.name);
+        TextView descr = convertView.findViewById(R.id.description);
+        TextView coin = convertView.findViewById(R.id.coin);
+        TextView addr =convertView.findViewById(R.id.address);
 
+        Assoc assoc = (Assoc)getItem(position);
+
+        name.setText(assoc.getName());
+        descr.setText(assoc.getDescr());
+        coin.setText(assoc.getCoin());
+        addr.setText(assoc.getAddress());
+
+        return convertView;
     }
 }

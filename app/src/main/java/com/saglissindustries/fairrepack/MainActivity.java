@@ -59,6 +59,16 @@ public class MainActivity extends AppCompatActivity {
                 // Le JSON créé est invalide
                 e.printStackTrace();
             }
+
+            String url = "https://pa.quozul.dev/api/user/read.php?id=1b86f141-11b4-4ac9-aa53-9ebb5584deb5";
+
+            // Faire la requête
+            new RequestHandler(url, "GET", sharedPreferences.getString("token", null), new RequestCallback() {
+                @Override
+                public void run() {
+                    System.out.println(response.toString());
+                }
+            });
         });
 
     }

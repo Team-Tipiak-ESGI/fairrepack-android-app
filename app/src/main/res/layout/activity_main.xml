@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:hint="@string/login"
-
+        android:text="erwan.legloannec@outlook.com"
         android:id="@+id/login" />
 
     <EditText
@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/password"
         android:inputType="textPassword"
+        android:text="56gLL3Sq"
         android:id="@+id/password" />
 
     <Button

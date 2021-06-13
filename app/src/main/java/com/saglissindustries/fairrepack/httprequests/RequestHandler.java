@@ -16,6 +16,7 @@ import java.nio.charset.StandardCharsets;
  */
 class RequestRunnable implements Runnable {
     public String url;
+    public String token;
     public String method;
     public JSONObject body;
     /**
@@ -29,16 +30,27 @@ class RequestRunnable implements Runnable {
             URL object = new URL(url);
 
             HttpURLConnection con = (HttpURLConnection) object.openConnection();
-            con.setDoOutput(true);
+            if (!method.equals("GET") && !method.equals("get")) {
+                con.setDoOutput(true); // implicitly set the request method to POST
+            }
+            con.setRequestMethod(method);
             con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
+            // Rajoute le token dans les en-têtes de la requête s'il est défini
+            if (this.token != null) {
+                con.setRequestProperty("Authorization", "Bearer " + token);
+            }
+
             // Ecrit le JSON dans le corp de la requête
-            OutputStream wr = con.getOutputStream();
-            wr.write(body.toString().getBytes(StandardCharsets.UTF_8));
-            wr.close();
+            if (this.body != null) {
+                OutputStream wr = con.getOutputStream();
+                wr.write(body.toString().getBytes(StandardCharsets.UTF_8));
+                wr.close();
+            }
 
             // Retourne une erreur si la requête n'a pas réussi
-            if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            int responseCode = con.getResponseCode();
+            if (responseCode != 200 && responseCode != 201 && responseCode != 202 && responseCode != 204) {
                 throw new RuntimeException("Failed : HTTP error code : " + con.getResponseCode());
             }
 
@@ -48,9 +60,8 @@ class RequestRunnable implements Runnable {
             String output;
             while ((output = br.readLine()) != null) {
                 // Parse la sortie en JSON
-                JSONObject response = new JSONObject(output);
                 // Ajoute le JSON dans le callback
-                callback.response = response;
+                callback.response = new JSONObject(output);
                 callback.run(); // Appelle le callback
             }
 
@@ -63,6 +74,7 @@ class RequestRunnable implements Runnable {
 
 public class RequestHandler extends Thread {
     String url;
+    String token;
     String method;
     JSONObject body;
     RequestCallback callback;
@@ -76,12 +88,40 @@ public class RequestHandler extends Thread {
         this.start();
     }
 
+    public RequestHandler(String url, String method, JSONObject body, String token, RequestCallback callback) {
+        this.url = url;
+        this.body = body;
+        this.token = token;
+        this.method = method;
+        this.callback = callback;
+
+        this.start();
+    }
+
+    public RequestHandler(String url, String method, RequestCallback callback) {
+        this.url = url;
+        this.method = method;
+        this.callback = callback;
+
+        this.start();
+    }
+
+    public RequestHandler(String url, String method, String token, RequestCallback callback) {
+        this.url = url;
+        this.token = token;
+        this.method = method;
+        this.callback = callback;
+
+        this.start();
+    }
+
     @Override
     public void run() {
         // Créé le runnable qui effectue la requête
         RequestRunnable requestRunnable = new RequestRunnable();
         requestRunnable.url = this.url;
         requestRunnable.body = this.body;
+        requestRunnable.token = this.token;
         requestRunnable.method = this.method;
         requestRunnable.callback = this.callback;
 

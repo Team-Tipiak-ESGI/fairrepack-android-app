@@ -4,4 +4,14 @@
     <string name="login">Identifiant</string>
     <string name="password">Mot de Passe</string>
     <string name="sign_in">Se connecter</string>
+    <string name="validate">Valider</string>
+    <string name="quit">Quitter</string>
+    <string name="back">Retour</string>
+    <string name="disconnect">Se Déconnecter</string>
+    <string name="hello">Bienvenue</string>
+    <string name="coins">GreenCoins : </string>
+    <string name="amount">Quantité</string>
+    <string name="spent">Total Depensé (en Euro) : </string>
+    <string name="assocs">Afficher la Liste des Associations</string>
+    <string name="convert">Convertir la somme en GreenCoins</string>
 </resources>

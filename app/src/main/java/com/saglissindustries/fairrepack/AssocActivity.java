@@ -22,6 +22,8 @@ import java.util.List;
 public class AssocActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     SharedPreferences sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+    ListView listView;
+    Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -30,8 +32,8 @@ public class AssocActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assoc_activity);
 
-        Button back = (Button)findViewById(R.id.back);
-        ListView listView = findViewById(R.id.assoc_view);
+        this.back = (Button) findViewById(R.id.back);
+        this.listView = (ListView) findViewById(R.id.assoc_view);
 
         AssocAdapter assocAdapter = new AssocAdapter(AssocActivity.this, getAssoc());
         listView.setAdapter(assocAdapter);

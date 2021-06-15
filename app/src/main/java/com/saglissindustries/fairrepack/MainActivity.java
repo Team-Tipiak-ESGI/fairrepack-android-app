@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -63,15 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            String url = "https://pa.quozul.dev/api/user/read.php?id=1b86f141-11b4-4ac9-aa53-9ebb5584deb5";
-
-            // Faire la requête
-            new RequestHandler(url, "GET", sharedPreferences.getString("token", null), new RequestCallback() {
-                @Override
-                public void run() {
-                    System.out.println(response.toString());
-                }
-            });
+            Intent landpage = new Intent(MainActivity.this, LandpageActivity.class);
+            startActivity(landpage);
         });
 
         quit.setOnClickListener(v -> {

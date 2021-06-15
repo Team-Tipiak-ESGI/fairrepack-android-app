@@ -1,6 +1,5 @@
 package com.saglissindustries.fairrepack;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,11 +14,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.saglissindustries.fairrepack.httprequests.RequestCallback;
 import com.saglissindustries.fairrepack.httprequests.RequestHandler;
 
+import org.json.JSONException;
+
 public class LandpageActivity extends AppCompatActivity {
 
     TextView quant, totalSpent;
     Button disconnect, convert, assocs, quit;
     String recupQuant, recupSpent;
+
+    private void updateCoinCount(String url, SharedPreferences sharedPreferences) {
+        new RequestHandler(url, "GET", sharedPreferences.getString("token", null), new RequestCallback() {
+            @Override
+            public void run() {
+                try {
+                    recupQuant = response.getJSONObject("information").getString("coins");
+                    recupSpent = response.getJSONObject("information").getString("waiting_coins");
+
+                    // Recuperation et Affectation de la valeur des tokens prealablement
+                    // recuperes par l'utilisateur
+                    quant = (TextView) findViewById(R.id.landpage_amount_coin);
+
+                    // Recuperation et Affectation de la valeur du total depense prealablement
+                    // recuperes par l'utilisateur
+                    totalSpent = (TextView) findViewById(R.id.landpage_amount_spent);
+
+                    runOnUiThread(() -> {
+                        quant.setText(recupQuant);
+                        totalSpent.setText(recupSpent);
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -38,29 +66,11 @@ public class LandpageActivity extends AppCompatActivity {
         assocs = (Button)findViewById(R.id.intentAssoc);
         quit = (Button)findViewById(R.id.quit);
 
+        recupQuant = "";
+        recupSpent = "";
+
         // DATA PASSEE PAR LA REQUETE API
-        try {
-            new RequestHandler(url, "GET", sharedPreferences.getString("token", null), new RequestCallback() {
-            @Override
-                public void run(){
-                   //recupQuant = response.get("");
-                   //recupSpent = response.get("");
-            }
-            });
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        // Recuperation et Affectation de la valeur des tokens prealablement
-        // recuperes par l'utilisateur
-        quant = (TextView) findViewById(R.id.landpage_amount_coin);
-        quant.setText(recupQuant);
-
-        // Recuperation et Affectation de la valeur du total depense prealablement
-        // recuperes par l'utilisateur
-        totalSpent = (TextView) findViewById(R.id.landpage_amount_spent);
-        totalSpent.setText(recupSpent);
+        updateCoinCount(url, sharedPreferences);
 
         disconnect.setOnClickListener(v ->{
             Intent backIntent = new Intent(LandpageActivity.this, MainActivity.class);
@@ -71,12 +81,13 @@ public class LandpageActivity extends AppCompatActivity {
             startActivity(backIntent);
         });
 
-        convert.setOnClickListener(v ->{
-            //TODO: REQUETE CONVERTION TOKEN - FORMULE
-            //toConvert  = 58€
-            //coins     += Math.floor(toConvert / 10) = 5 coins
-            //toConvert -= toConvert % 10             = 8 €
-
+        convert.setOnClickListener(v -> {
+            new RequestHandler("https://pa.quozul.dev/api/coin/convert.php", "POST", sharedPreferences.getString("token", null), new RequestCallback() {
+                @Override
+                public void run() {
+                    updateCoinCount(url, sharedPreferences);
+                }
+            });
         });
 
         assocs.setOnClickListener(v -> {

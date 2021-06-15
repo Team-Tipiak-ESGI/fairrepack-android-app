@@ -2,14 +2,15 @@ package com.saglissindustries.fairrepack;
 
 public class Assoc {
 
-    private String name, descr, address;
+    private String name, descr, address, uuid;
     private int coin;
 
-    public Assoc(String name, String descr, String address, int coin){
+    public Assoc(String name, String descr, String address, int coin, String uuid){
         this.name = name;
         this.descr = descr;
         this.address = address;
         this.coin = coin;
+        this.uuid = uuid;
     }
 
     public String getName(){
@@ -22,6 +23,10 @@ public class Assoc {
 
     public String getAddress(){
         return address;
+    }
+
+    public String getUUID(){
+        return uuid;
     }
 
     public int getCoin(){

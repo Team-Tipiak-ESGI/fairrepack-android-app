@@ -1,6 +1,7 @@
 package com.saglissindustries.fairrepack;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,16 @@ public class AssocAdapter extends BaseAdapter {
         descr.setText(assoc.getDescr());
         coin.setText(String.valueOf(assoc.getCoin()));
         addr.setText(assoc.getAddress());
+
+        convertView.setOnClickListener(v -> {
+            Intent coinIntent = new Intent(context, CoinActivity.class);
+            coinIntent.putExtra("uuid", assoc.getUUID());
+            coinIntent.putExtra("name", assoc.getName());
+            coinIntent.putExtra("descr", assoc.getDescr());
+            coinIntent.putExtra("coin", assoc.getCoin());
+            coinIntent.putExtra("addr", assoc.getAddress());
+            context.startActivity(coinIntent);
+        });
 
         return convertView;
     }

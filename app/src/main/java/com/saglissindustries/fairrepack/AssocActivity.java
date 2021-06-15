@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AssocActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class AssocActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     ListView listView;
@@ -63,8 +63,9 @@ public class AssocActivity extends AppCompatActivity implements AdapterView.OnIt
                             String descr = associationObject.getString("description");
                             int coin = Integer.parseInt(associationObject.getString("coin"));
                             String address = associationObject.getString("address");
+                            String uuid = associationObject.getString("uuid_association");
                             // Mise en place dans un tableau
-                            assocs.add(new Assoc(name, descr, address, coin));
+                            assocs.add(new Assoc(name, descr, address, coin, uuid));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -75,23 +76,5 @@ public class AssocActivity extends AppCompatActivity implements AdapterView.OnIt
             e.printStackTrace();
         }
         return assocs;
-    }
-
-    /**
-     * Callback method to be invoked when an item in this AdapterView has
-     * been clicked.
-     * <p>
-     * Implementers can call getItemAtPosition(position) if they need
-     * to access the data associated with the selected item.
-     *
-     * @param parent   The AdapterView where the click happened.
-     * @param view     The view within the AdapterView that was clicked (this
-     *                 will be a view provided by the adapter)
-     * @param position The position of the view in the adapter.
-     * @param id       The row id of the item that was clicked.
-     */
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     }
 }

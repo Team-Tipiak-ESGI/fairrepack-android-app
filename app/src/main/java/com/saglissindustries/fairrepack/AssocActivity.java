@@ -32,8 +32,8 @@ public class AssocActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assoc_activity);
 
-        this.back = (Button) findViewById(R.id.back);
-        this.listView = (ListView) findViewById(R.id.assoc_view);
+        back = (Button) findViewById(R.id.back);
+        listView = (ListView) findViewById(R.id.assoc_view);
 
         AssocAdapter assocAdapter = new AssocAdapter(AssocActivity.this, getAssoc());
         listView.setAdapter(assocAdapter);

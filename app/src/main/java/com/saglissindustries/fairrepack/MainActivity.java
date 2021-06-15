@@ -1,7 +1,9 @@
 package com.saglissindustries.fairrepack;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +18,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button signInBtn;
+    private Button signInBtn, quit;
     private EditText loginText, passwordText;
 
     @Override
@@ -24,19 +26,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.signInBtn = findViewById(R.id.sign_in);
-        this.loginText = findViewById(R.id.login);
-        this.passwordText = findViewById(R.id.password);
+        signInBtn = (Button)findViewById(R.id.sign_in);
+        loginText = (EditText)findViewById(R.id.login);
+        passwordText = (EditText) findViewById(R.id.password);
+        quit = (Button) findViewById(R.id.quit);
 
         // Gestion SharedPreferences pour Stockage Identifiants
         SharedPreferences sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
 
-        this.signInBtn.setOnClickListener((View view) -> {
+        signInBtn.setOnClickListener((View view) -> {
             try {
                 // Création du JSON pour la requête
                 JSONObject postDataParams = new JSONObject();
-                postDataParams.put("email", this.loginText.getText().toString());
-                postDataParams.put("password", this.passwordText.getText().toString());
+                postDataParams.put("email", loginText.getText().toString());
+                postDataParams.put("password", passwordText.getText().toString());
 
                 String url = "https://pa.quozul.dev/api/user/login.php";
 
@@ -71,5 +74,14 @@ public class MainActivity extends AppCompatActivity {
             });
         });
 
+        quit.setOnClickListener(v -> {
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle(getString(R.string.pop_title))
+                    .setMessage(getString(R.string.pop_content))
+                    .setPositiveButton(getString(R.string.yes), (dialog, which) -> finish())
+                    .setNegativeButton(getString(R.string.no), (dialog, which) -> {})
+                    .setCancelable(false)
+                    .show();
+        });
     }
 }

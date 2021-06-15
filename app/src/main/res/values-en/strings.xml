@@ -14,4 +14,8 @@
     <string name="spent">Total Spent (in Euro) : </string>
     <string name="assocs">Display Associations List</string>
     <string name="convert">Convert total spent in GreenCoins</string>
+    <string name="pop_title">Question</string>
+    <string name="pop_content">Do you want to exit the app ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

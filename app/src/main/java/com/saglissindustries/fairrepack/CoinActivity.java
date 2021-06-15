@@ -18,8 +18,8 @@ public class CoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assoc_coin);
 
-        this.back = (Button)findViewById(R.id.back);
-        this.validate = (Button)findViewById(R.id.sendCoin);
+        back = (Button)findViewById(R.id.back);
+        validate = (Button)findViewById(R.id.sendCoin);
 
         back.setOnClickListener(v ->{
             Intent backIntent = new Intent(CoinActivity.this, LandpageActivity.class);

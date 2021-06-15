@@ -14,4 +14,8 @@
     <string name="spent">Total Depensé (en Euro) : </string>
     <string name="assocs">Afficher la Liste des Associations</string>
     <string name="convert">Convertir la somme en GreenCoins</string>
+    <string name="pop_title">Question</string>
+    <string name="pop_content">Voulez-Vous quitter l\'application</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 </resources>

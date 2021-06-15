@@ -6,7 +6,10 @@ public class Assoc {
     private int coin;
 
     public Assoc(String name, String descr, String address, int coin){
-
+        this.name = name;
+        this.descr = descr;
+        this.address = address;
+        this.coin = coin;
     }
 
     public String getName(){

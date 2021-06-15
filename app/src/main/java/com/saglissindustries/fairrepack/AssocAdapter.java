@@ -43,7 +43,7 @@ public class AssocAdapter extends BaseAdapter {
 
         name.setText(assoc.getName());
         descr.setText(assoc.getDescr());
-        coin.setText(assoc.getCoin());
+        coin.setText(String.valueOf(assoc.getCoin()));
         addr.setText(assoc.getAddress());
 
         return convertView;

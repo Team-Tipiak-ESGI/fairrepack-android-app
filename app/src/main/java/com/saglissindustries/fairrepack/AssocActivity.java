@@ -33,11 +33,10 @@ public class AssocActivity extends AppCompatActivity {
 
         this.sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
 
-        back = (Button) findViewById(R.id.back);
-        listView = (ListView) findViewById(R.id.assoc_view);
+        back = findViewById(R.id.back);
+        listView = findViewById(R.id.assoc_view);
 
-        AssocAdapter assocAdapter = new AssocAdapter(AssocActivity.this, getAssoc());
-        listView.setAdapter(assocAdapter);
+        getAssoc();
 
         back.setOnClickListener(v ->{
             Intent backIntent = new Intent(AssocActivity.this, LandpageActivity.class);
@@ -45,7 +44,7 @@ public class AssocActivity extends AppCompatActivity {
         });
     }
 
-    public List<Assoc> getAssoc() {
+    public void getAssoc() {
         String url = "https://pa.quozul.dev/api/association/read.php";
         List<Assoc> assocs = new ArrayList<>();
         try {
@@ -70,11 +69,13 @@ public class AssocActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    AssocAdapter assocAdapter = new AssocAdapter(AssocActivity.this, assocs);
+                    listView.setAdapter(assocAdapter);
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return assocs;
     }
 }

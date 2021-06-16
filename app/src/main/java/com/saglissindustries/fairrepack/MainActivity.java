@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
                 String url = "https://pa.quozul.dev/api/user/login.php";
 
+                System.out.println(postDataParams);
+
                 // Faire la requête
                 new RequestHandler(url, "POST", postDataParams, new RequestCallback() {
                     @Override
@@ -53,19 +55,19 @@ public class MainActivity extends AppCompatActivity {
                             String token = response.get("token").toString();
                             sharedPreferences.edit().putString("token", token).apply();
                             System.out.println(token);
+
+                            Intent landpage = new Intent(MainActivity.this, LandpageActivity.class);
+                            runOnUiThread(() -> startActivity(landpage));
                         } catch (JSONException e) {
                             // Le JSON retourné par la requête est invalide
                             e.printStackTrace();
                         }
                     }
                 });
-            } catch (JSONException e) {
+            } catch (JSONException | RuntimeException e) {
                 // Le JSON créé est invalide
                 e.printStackTrace();
             }
-
-            Intent landpage = new Intent(MainActivity.this, LandpageActivity.class);
-            startActivity(landpage);
         });
 
         quit.setOnClickListener(v -> {

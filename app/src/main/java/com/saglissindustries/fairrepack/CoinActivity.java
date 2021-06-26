@@ -48,7 +48,6 @@ public class CoinActivity extends AppCompatActivity {
             // récupère la quantité de coins a donner
             String coins = ((TextView) findViewById(R.id.AddCoins)).getText().toString();
 
-            //TODO: APPEL API ENVOI COIN SUR ASSO SELECTIONNEE
             String url = "https://pa.quozul.dev/api/coin/spend.php";
 
             JSONObject jsonObject = new JSONObject();

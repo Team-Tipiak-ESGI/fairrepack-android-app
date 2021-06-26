@@ -60,7 +60,7 @@ public class AssocActivity extends AppCompatActivity {
                             //  Recupration de chaque membres des associations
                             String name = associationObject.getString("name");
                             String descr = associationObject.getString("description");
-                            int coin = Integer.parseInt(associationObject.getString("coin"));
+                            int coin = Integer.parseInt(associationObject.getString("coins"));
                             String address = associationObject.getString("address");
                             String uuid = associationObject.getString("uuid_association");
                             // Mise en place dans un tableau
